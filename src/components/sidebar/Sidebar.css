@@ -1,8 +1,9 @@
 .sidebar {
   background-color: var(--slack-color);
   border-top: 0.2rem solid #49274b;
-  width: 20vw;
+  width: 25vw;
   color: #fff;
+  overflow-y: scroll;
 }
 
 .sidebar__header {
