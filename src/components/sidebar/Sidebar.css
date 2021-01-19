@@ -3,7 +3,7 @@
   border-top: 0.2rem solid #49274b;
   width: 25vw;
   color: #fff;
-  overflow-y: scroll;
+  flex: 0.3;
 }
 
 .sidebar__header {
