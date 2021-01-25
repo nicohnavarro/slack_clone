@@ -4,11 +4,12 @@ import { useParams } from 'react-router-dom';
 import StarBorderOutlinedIcon from '@material-ui/icons/StarBorderOutlined';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import db from '../../firebase';
+import Message from './message/Message';
 
 const Chat = () => {
     const { roomId } = useParams();
     const [roomDetails, setRoomDetails] = useState(null);
-    const [roomMessages, setRoomMessages] = useState(null);
+    const [roomMessages, setRoomMessages] = useState([]);
 
     useEffect(() => {
         if (roomId) {
@@ -22,11 +23,10 @@ const Chat = () => {
         .collection('messages')
         .orderBy('timestamp','asc')
         .onSnapshot((snapshot)=>
-            setRoomMessages(snapshot.docs.map(doc => doc.data))
-        )
+            setRoomMessages(snapshot.docs.map(doc => doc.data()))
+            )
     }, [roomId])
-
-
+console.log(roomMessages)
     return (
         <div className='chat'>
             <div className='chat__header'>
@@ -34,16 +34,23 @@ const Chat = () => {
                     <h4 className='chat__channelName'><strong>#{roomDetails?.name}</strong>
                         <StarBorderOutlinedIcon />
                     </h4>
-                </div>
-                <div className='chat__headerRight'>
-                    <p>
-                        <InfoOutlinedIcon />Details
-                    </p>
-                </div>
             </div>
+            <div className='chat__headerRight'>
+                <p>
+                    <InfoOutlinedIcon />Details
+                </p>
+            </div>
+        </div>
 
-            <div className="chat__messages">
-                
+        <div className="chat__messages">
+            {roomMessages.map(({message, timestamp, user, userImage}) =>(
+                <Message 
+                message= {message}
+                timestamp={timestamp}
+                user={user}
+                userImage={userImage}
+                />
+            ))}
             </div>
         </div>
     );
