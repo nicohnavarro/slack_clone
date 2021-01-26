@@ -1,0 +1,11 @@
+.details__icons{
+    margin-right: 10px;
+}
+
+.details__icons > .MuiSvgIcon-root{
+    margin-right: 10px; 
+}
+
+.details__icons > .MuiSvgIcon-root :hover{
+    cursor: pointer;
+}
