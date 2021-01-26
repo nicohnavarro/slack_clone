@@ -1,12 +1,14 @@
 .message{
     display:flex;
     align-items: center;
-    padding: 20px;
+    padding: 10px;
+    border-bottom: .5px solid rgba(190, 190, 190, 0.33);
 }
 
+
 .message > img {
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
     object-fit: contain;
 }
 
@@ -18,4 +20,9 @@
 
 .message__info{
     padding-left: 10px;
+}
+
+.message__info > h4 , p {
+    margin-top: 0;
+    margin-bottom: 0;
 }

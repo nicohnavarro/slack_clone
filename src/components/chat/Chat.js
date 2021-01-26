@@ -1,10 +1,11 @@
-import React, {useState,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import './Chat.css';
 import { useParams } from 'react-router-dom';
 import StarBorderOutlinedIcon from '@material-ui/icons/StarBorderOutlined';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import db from '../../firebase';
 import Message from './message/Message';
+import ChatInput from './chatInput/ChatInput';
 
 const Chat = () => {
     const { roomId } = useParams();
@@ -16,17 +17,17 @@ const Chat = () => {
             db.collection('rooms').doc(roomId)
                 .onSnapshot((snapshot) => (
                     setRoomDetails(snapshot.data())
-        ))
+                ))
         }
 
         db.collection('rooms').doc(roomId)
-        .collection('messages')
-        .orderBy('timestamp','asc')
-        .onSnapshot((snapshot)=>
-            setRoomMessages(snapshot.docs.map(doc => doc.data()))
+            .collection('messages')
+            .orderBy('timestamp', 'asc')
+            .onSnapshot((snapshot) =>
+                setRoomMessages(snapshot.docs.map(doc => doc.data()))
             )
     }, [roomId])
-console.log(roomMessages)
+    console.log(roomMessages)
     return (
         <div className='chat'>
             <div className='chat__header'>
@@ -34,24 +35,26 @@ console.log(roomMessages)
                     <h4 className='chat__channelName'><strong>#{roomDetails?.name}</strong>
                         <StarBorderOutlinedIcon />
                     </h4>
-            </div>
-            <div className='chat__headerRight'>
-                <p>
-                    <InfoOutlinedIcon />Details
+                </div>
+                <div className='chat__headerRight'>
+                    <p>
+                        <InfoOutlinedIcon />Details
                 </p>
+                </div>
             </div>
-        </div>
 
-        <div className="chat__messages">
-            {roomMessages.map(({message, timestamp, user, userImage}) =>(
-                <Message 
-                message= {message}
-                timestamp={timestamp}
-                user={user}
-                userImage={userImage}
-                />
-            ))}
+            <div className="chat__messages">
+                {roomMessages.map(({ message, timestamp, user, userImage }) => (
+                    <Message
+                        message={message}
+                        timestamp={timestamp}
+                        user={user}
+                        userImage={userImage}
+                    />
+                ))}
             </div>
+
+            <ChatInput channelName={roomDetails?.name} channelId={roomId}/>
         </div>
     );
 }
