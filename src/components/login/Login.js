@@ -7,7 +7,7 @@ import { actionTypes } from '../../reducer';
 
 const Login = () => {
 
-    const [state,dispatch] = useStateValue();
+    const [dispatch] = useStateValue();
 
     const signIn = () =>{
         // e.preventDefault();

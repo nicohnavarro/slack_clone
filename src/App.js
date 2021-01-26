@@ -9,7 +9,7 @@ import { useStateValue } from './StateProvider';
 
 const App = () => {
 
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user }] = useStateValue();
 
   return (
     <div className='app'>
@@ -32,8 +32,6 @@ const App = () => {
               </div>
             </>
           )}
-
-        {/* React-Router -> Chat screen */}
       </Router>
 
     </div>
