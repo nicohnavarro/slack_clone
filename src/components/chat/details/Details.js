@@ -1,5 +1,6 @@
 import React from 'react';
 import './Details.css';
+import { useHistory } from 'react-router-dom';
 import DeleteIcon from '@material-ui/icons/Delete';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Dialog from '@material-ui/core/Dialog';
@@ -18,6 +19,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const Details = ({roomId}) => {
     const [open, setOpen] = React.useState(false);
 
+    const history = useHistory();
     const handleClickOpen = () => {
       setOpen(true);
     };
@@ -29,6 +31,7 @@ const Details = ({roomId}) => {
     const handleConfirm = () => {
         db.collection('rooms').doc(roomId).delete().then(function() {
             console.log("Document successfully deleted!");
+            history.push('/');
             setOpen(false);
         }).catch(function(error) {
             console.error("Error removing document: ", error);
